@@ -1,0 +1,50 @@
+main.login {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    min-height: 100vh;
+    position: relative;
+}
+
+section.presentation {
+    flex: 1;
+    background: #BADFFB;
+    min-height: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+section.welcome {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+
+section.welcome .wrapper-login {
+    width: 70%;
+    min-width: 20rem;
+    text-align: center;
+}
+
+section.welcome .wrapper-login input,
+section.welcome .wrapper-login button {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+section.welcome .wrapper-login h1 {
+    margin-bottom: 0;
+    font-size: 2em;
+}
+
+section.welcome .wrapper-login p {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
