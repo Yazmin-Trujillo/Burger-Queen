@@ -32,7 +32,8 @@ section.welcome .wrapper-login {
 }
 
 section.welcome .wrapper-login input,
-section.welcome .wrapper-login button {
+section.welcome .wrapper-login button,
+section.welcome .wrapper-login .message {
     display: block;
     width: 100%;
     margin-bottom: 1rem;
@@ -48,3 +49,11 @@ section.welcome .wrapper-login p {
     margin-bottom: 1em;
     font-size: 1.2em;
 }
+section.welcome .wrapper-login .message-hidden{
+    display: none;
+}
+
+/* section.welcome .wrapper-login button{
+    background: #1882f3;
+    border: 1px solid #1882f3;
+} */
