@@ -1,13 +1,13 @@
-import React from 'react';
-import Login from './components/login/Login';
+import Router from './components/navigation/Router';
 import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
 import "primereact/resources/primereact.min.css";                  //core css
 import "primeicons/primeicons.css";                                //icons
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <Login />
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
-
-export default App;
