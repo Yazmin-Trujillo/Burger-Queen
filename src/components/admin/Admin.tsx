@@ -16,7 +16,7 @@ export default function Admin() {
   }, []);
 
   async function readProducts() {
-    const products = await api.geteProducts()
+    const products = await api.getProducts()
     setProducts(products)
     console.log('en Admin view, products es', products)
   }

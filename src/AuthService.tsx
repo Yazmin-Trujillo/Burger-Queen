@@ -19,7 +19,7 @@ const api = {
         }
     },
 
-    geteProducts: async (): Promise<Product[]> => {
+    getProducts: async (): Promise<Product[]> => {
         try {
             const response = await axios.get('https://j-burguer-api.herokuapp.com/api/v1/products', { headers: { "Authorization": `Bearer ${token}` } });
             const products = response.data.products;
