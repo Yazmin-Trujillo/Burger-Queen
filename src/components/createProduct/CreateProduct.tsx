@@ -29,14 +29,14 @@ export const CreateProduct = ({ onClose }: Props) => {
                 <h2>Product Details</h2>
                 <div className='main'>
 
-                    <h3>Name</h3>
+                    <h3>Name *</h3>
                     <InputText value={value1} onChange={(e) => setValue1(e.target.value)} />
                     <span className="ml-2">{value1}</span>
 
                     <h3>Description</h3>
                     <InputTextarea value={value2} onChange={(e) => setValue2(e.target.value)} rows={5} cols={30} autoResize />
 
-                    <h3>Price</h3>
+                    <h3>Price *</h3>
                     {/* <InputText value={value3} onChange={(e) => setValue3(e.target.value)} />
             <span className="ml-2">{value3}</span> */}
                     {/* <label htmlFor="currency-us">Dollars</label> */}
