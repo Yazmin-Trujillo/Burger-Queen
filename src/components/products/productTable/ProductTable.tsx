@@ -1,22 +1,13 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Product } from '../../../models/product';
-import { useEffect, useState } from 'react';
-import api from '../../../AuthService';
 
-export default function ProductTable() {
-    const [products, setProducts] = useState<Product[]>([]);
+type Props = {
+    products: Product[]
+  }
 
-    useEffect(() => {
-        readProducts()
-    }, []);
-
-    async function readProducts() {
-        const products = await api.getProducts()
-        setProducts(products)
-        console.log('en Admin view, products es', products)
-    }
-
+export default function ProductTable({products}: Props) {
+   
     return (
         <div data-testid="product-table">
             <DataTable value={products} responsiveLayout="scroll">

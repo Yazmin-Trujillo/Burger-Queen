@@ -15,7 +15,7 @@ describe('ProductTable component', () => {
                 createDate: new Date('July 02, 2022 22:27:00')
             }];
 
-            render(<ProductTable />)
+            render(<ProductTable products={products}/>)
 
             expect(screen.getByText(products[0].name)).toBeInTheDocument();
             expect(screen.getByText(products[0].description!)).toBeInTheDocument();

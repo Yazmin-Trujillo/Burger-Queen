@@ -7,14 +7,15 @@ import { Button } from 'primereact/button';
 import './CreateProduct.css';
 import api from '../../../AuthService';
 
+
 type Props = {
-    onClose: () => void
+    onClose: () => void,
+    onSave: () => void
 }
 
-export const CreateProduct = ({ onClose }: Props) => {
+export const CreateProduct = ({ onClose, onSave }: Props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    // const [value3, setValue3] = useState('');
     const [type, setType] = useState(null);
     const [price, setPrice] = useState<number | null>(0);
 
@@ -25,6 +26,7 @@ export const CreateProduct = ({ onClose }: Props) => {
         }
         if (await api.crerateProduct(name, price)) {
             console.log('save')
+            onSave()
         }
         onClose()
     }
@@ -41,15 +43,11 @@ export const CreateProduct = ({ onClose }: Props) => {
 
                     <h3>Name *</h3>
                     <InputText value={name} onChange={(e) => setName(e.target.value)} />
-                    <span className="ml-2">{name}</span>
 
                     <h3>Description</h3>
                     <InputTextarea value={description} onChange={(e) => setDescription(e.target.value)} rows={5} cols={30} autoResize />
 
                     <h3>Price *</h3>
-                    {/* <InputText value={value3} onChange={(e) => setValue3(e.target.value)} />
-            <span className="ml-2">{value3}</span> */}
-                    {/* <label htmlFor="currency-us">Dollars</label> */}
                     <InputNumber inputId="currency-us" value={price} onValueChange={(e) => setPrice(e.value)} mode="currency" currency="USD" locale="en-US" />
 
                     <h3>Type</h3>

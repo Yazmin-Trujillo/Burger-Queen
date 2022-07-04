@@ -1,10 +1,10 @@
-import Product from "../products/Products";
+import ProductsView from "../products/Products";
 
 export default function Admin() {
 
   return (
     <>
-      <Product />
+      <ProductsView />
     </>
   )
 }
