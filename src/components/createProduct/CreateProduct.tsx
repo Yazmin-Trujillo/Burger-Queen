@@ -5,21 +5,35 @@ import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import './CreateProduct.css';
+import api from '../../AuthService';
+import { Product } from '../../models/product';
 
 
 type Props = {
     onClose: () => void,
+    onClick: () => void
 }
 
-export const CreateProduct = ({ onClose }: Props) => {
-    const [value1, setValue1] = useState('');
-    const [value2, setValue2] = useState('');
+export const CreateProduct = ({ onClose, onClick }: Props) => {
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     // const [value3, setValue3] = useState('');
     const [type, setType] = useState(null);
-    const [value9, setValue9] = useState<number | null>(0);
+    const [price, setPrice] = useState<number | null>(0);
 
 
-    function save() {
+    async function save() {
+        if (name === '' || price === 0) {
+            return console.log('llene todos los campos')
+        }
+        if (await api.crerateProduct(name, price)) {
+            console.log('save')
+        }
+        onClick()
+        onClose()
+    }
+
+    function cancel() {
         onClose()
     }
 
@@ -30,17 +44,17 @@ export const CreateProduct = ({ onClose }: Props) => {
                 <div className='main'>
 
                     <h3>Name *</h3>
-                    <InputText value={value1} onChange={(e) => setValue1(e.target.value)} />
-                    <span className="ml-2">{value1}</span>
+                    <InputText value={name} onChange={(e) => setName(e.target.value)} />
+                    <span className="ml-2">{name}</span>
 
                     <h3>Description</h3>
-                    <InputTextarea value={value2} onChange={(e) => setValue2(e.target.value)} rows={5} cols={30} autoResize />
+                    <InputTextarea value={description} onChange={(e) => setDescription(e.target.value)} rows={5} cols={30} autoResize />
 
                     <h3>Price *</h3>
                     {/* <InputText value={value3} onChange={(e) => setValue3(e.target.value)} />
             <span className="ml-2">{value3}</span> */}
                     {/* <label htmlFor="currency-us">Dollars</label> */}
-                    <InputNumber inputId="currency-us" value={value9} onValueChange={(e) => setValue9(e.value)} mode="currency" currency="USD" locale="en-US" />
+                    <InputNumber inputId="currency-us" value={price} onValueChange={(e) => setPrice(e.value)} mode="currency" currency="USD" locale="en-US" />
 
                     <h3>Type</h3>
                     <div className="field-radiobutton">
@@ -58,7 +72,7 @@ export const CreateProduct = ({ onClose }: Props) => {
 
                     <div className="save-cancel">
                         <Button label="Save" icon="pi pi-check" className="p-button-secondary p-button-text" onClick={save} />
-                        <Button label="Cancel" icon="pi pi-times" className="p-button-secondary p-button-text" />
+                        <Button label="Cancel" icon="pi pi-times" className="p-button-secondary p-button-text" onClick={cancel} />
                     </div>
                 </div>
 

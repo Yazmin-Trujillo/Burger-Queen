@@ -29,6 +29,19 @@ const api = {
             throw error
         }
     },
+
+    crerateProduct: async (name:string, price: number|null): Promise<Product> => {
+        try {
+            const article= {name, price}
+            const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/products', article ,{ headers: { "Authorization": `Bearer ${token}` } });
+            const product = response.data
+            console.log('product?', product)
+            return product
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+    }
 }
 
 export default api

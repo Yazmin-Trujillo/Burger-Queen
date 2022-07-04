@@ -28,6 +28,10 @@ export default function Admin() {
   function onCreateOpen() {
     setShowCreateProduct(true)
   };
+  async function addProduct() {
+    const products = await api.getProducts()
+    setProducts(products)
+  }
 
   return (
     <>
@@ -36,7 +40,7 @@ export default function Admin() {
           <Button icon="pi pi-plus" className="p-button-rounded" aria-label="User" onClick={onCreateOpen} />
         </div>
         <ProductTable products={products} />
-        {showCreateProduct ? <CreateProduct onClose={onCreateClose} /> : ''}
+        {showCreateProduct ? <CreateProduct onClose={onCreateClose} onClick={addProduct} /> : ''}
       </div>
     </>
   )

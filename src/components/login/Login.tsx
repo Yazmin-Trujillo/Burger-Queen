@@ -27,6 +27,10 @@ export default function Login({ setIsAuth }: Props) {
         }
     }
 
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    }
+
     return (
         <main className='login'>
             <section className='presentation'>
@@ -38,13 +42,14 @@ export default function Login({ setIsAuth }: Props) {
                     <h1 data-testid='welcomeTitle'>Welcome</h1>
                     <p>Enter your data to continue</p>
                     {invalidLogin ? <Message data-testid='error-message' className='message' severity="error" text="Wrong email or password" /> : ''}
-
-                    <InputText data-testid='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" />
-                    <InputText data-testid='password' value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                    <Button data-testid='continue-button' label="CONTINUE" onClick={login} />
+                    <form onSubmit={handleSubmit}>
+                        <InputText data-testid='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" />
+                        <InputText data-testid='password' value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                        <Button data-testid='continue-button' label="CONTINUE" onClick={login} type="submit" />
+                    </form>
                 </div>
 
             </section>
-        </main>
+        </main >
     );
 }
