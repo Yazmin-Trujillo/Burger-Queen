@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '../../models/product';
+import { Product } from '../../../models/product';
 import ProductTable from './ProductTable';
 
 describe('ProductTable component', () => {
@@ -15,7 +15,7 @@ describe('ProductTable component', () => {
                 createDate: new Date('July 02, 2022 22:27:00')
             }];
 
-            render(<ProductTable products={products} />)
+            render(<ProductTable />)
 
             expect(screen.getByText(products[0].name)).toBeInTheDocument();
             expect(screen.getByText(products[0].description!)).toBeInTheDocument();

@@ -5,16 +5,13 @@ import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import './CreateProduct.css';
-import api from '../../AuthService';
-import { Product } from '../../models/product';
-
+import api from '../../../AuthService';
 
 type Props = {
-    onClose: () => void,
-    onClick: () => void
+    onClose: () => void
 }
 
-export const CreateProduct = ({ onClose, onClick }: Props) => {
+export const CreateProduct = ({ onClose }: Props) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     // const [value3, setValue3] = useState('');
@@ -29,7 +26,6 @@ export const CreateProduct = ({ onClose, onClick }: Props) => {
         if (await api.crerateProduct(name, price)) {
             console.log('save')
         }
-        onClick()
         onClose()
     }
 
