@@ -1,12 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import Login from './Login';
-import api from '../../AuthService'
+import apiBurgerQueen from '../../AuthService'
 import userEvent from '@testing-library/user-event';
 
 jest.mock('../../AuthService', () => ({ authenticate: jest.fn() }))
 
 describe('Login component', () => {
-    const authenticateMock = api.authenticate as jest.MockedFunction<any>;
+    const authenticateMock = apiBurgerQueen.authenticate as jest.MockedFunction<any>;
     let setIsAuthMock: jest.Mock;
 
     beforeEach(() => {

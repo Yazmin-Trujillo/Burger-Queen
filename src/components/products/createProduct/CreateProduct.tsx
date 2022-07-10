@@ -5,7 +5,7 @@ import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import './CreateProduct.css';
-import api from '../../../AuthService';
+import apiBurgerQueen from '../../../AuthService';
 
 
 type Props = {
@@ -24,7 +24,7 @@ export const CreateProduct = ({ onClose, onSave }: Props) => {
         if (name === '' || price === 0) {
             return console.log('llene todos los campos')
         }
-        if (await api.createProduct(name, description, price, type, category)) {
+        if (await apiBurgerQueen.createProduct(name, description, price, type, category)) {
             console.log('save')
             onSave()
         }

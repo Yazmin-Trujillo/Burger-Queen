@@ -1,13 +1,13 @@
  import { render, screen } from '@testing-library/react';
 import Admin from './Admin';
-import api from '../../AuthService'
+import apiBurgerQueen from '../../AuthService'
 // import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 
 jest.mock('../../AuthService', () => ({ getProducts: jest.fn() }))
 
 describe('Admin component', () => {
-    const getProductsMock = api.getProducts as jest.MockedFunction<any>;
+    const getProductsMock = apiBurgerQueen.getProducts as jest.MockedFunction<any>;
 
     describe('on get products successfully', ()=>{
         it('renders table', async () => {

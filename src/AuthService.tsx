@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Product } from './models/product';
 
 let token = '';
-const api = {
+const apiBurgerQueen = {
 
     authenticate: async function (email: string, password: string): Promise<boolean> {
         try {
@@ -44,4 +44,4 @@ const api = {
     }
 }
 
-export default api
+export default apiBurgerQueen

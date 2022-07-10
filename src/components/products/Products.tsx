@@ -4,7 +4,7 @@ import './Button.css';
 import { CreateProduct } from "../products/createProduct/CreateProduct";
 import ProductTable from "../products/productTable/ProductTable";
 import { Product } from '../../models/product';
-import api from '../../AuthService';
+import apiBurgerQueen from '../../AuthService';
 
 
 export default function ProductsView() {
@@ -16,7 +16,7 @@ export default function ProductsView() {
     }, []);
 
     async function readProducts() {
-        const products = await api.getProducts()
+        const products = await apiBurgerQueen.getProducts()
         setProducts(products)
     }
 
