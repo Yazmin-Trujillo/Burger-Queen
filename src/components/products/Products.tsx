@@ -20,11 +20,6 @@ export default function ProductsView() {
         setProducts(products)
     }
 
-    async function addProduct() {
-        const products = await api.getProducts()
-        setProducts(products)
-    }
-
     function onCreateClose() {
         setShowCreateProduct(false)
     };
@@ -38,7 +33,7 @@ export default function ProductsView() {
                 <Button icon="pi pi-plus" className="p-button-rounded" aria-label="User" onClick={onCreateOpen} />
             </div>
             <ProductTable products={products} />
-            {showCreateProduct ? <CreateProduct onClose={onCreateClose} onSave={addProduct} /> : ''}
+            {showCreateProduct ? <CreateProduct onClose={onCreateClose} onSave={readProducts} /> : ''}
         </div>
     )
 }

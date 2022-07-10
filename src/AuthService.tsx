@@ -30,9 +30,9 @@ const api = {
         }
     },
 
-    crerateProduct: async (name:string, price: number|null): Promise<Product> => {
+    createProduct: async (name:string, description: string = '', price: number|null, type: string = '', category: string = '' ): Promise<Product> => {
         try {
-            const article= {name, price}
+            const article= {name, description, price, type, category}
             const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/products', article ,{ headers: { "Authorization": `Bearer ${token}` } });
             const product = response.data
             console.log('product?', product)
