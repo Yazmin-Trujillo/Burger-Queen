@@ -16,8 +16,17 @@ export default function ProductsView() {
     }, []);
 
     async function readProducts() {
-        const products = await apiBurgerQueen.getProducts()
-        setProducts(products)
+        const products = await apiBurgerQueen.getProducts();
+        const orderedProducts = products.sort((a, b) => {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                return -1;
+            }
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                return 1;
+            }
+            return 0;
+        });
+        setProducts(orderedProducts)
     }
 
     function onCreateClose() {
