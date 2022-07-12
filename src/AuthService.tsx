@@ -2,6 +2,13 @@ import axios from 'axios';
 import { Product } from './models/product';
 
 let token = '';
+
+// const headers = {
+//     // 'Authorization': 'Bearer my-token',
+//     // 'My-Custom-Header': 'foobar'
+//     "Authorization": `Bearer ${token}`
+// };
+
 const apiBurgerQueen = {
 
     authenticate: async function (email: string, password: string): Promise<boolean> {
@@ -30,17 +37,26 @@ const apiBurgerQueen = {
         }
     },
 
-    createProduct: async (name:string, description: string = '', price: number|null, type: string = '', category: string = '' ): Promise<Product> => {
+    createProduct: async (name: string, description: string = '', price: number | null, type: string = '', category: string = ''): Promise<Product> => {
         try {
-            const article= {name, description, price, type, category}
-            const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/products', article ,{ headers: { "Authorization": `Bearer ${token}` } });
+            const article = { name, description, price, type, category }
+            const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/products', article, { headers: { "Authorization": `Bearer ${token}` } });
             const product = response.data
-            console.log('product?', product)
             return product
         } catch (error) {
             console.error(error);
             throw error
         }
+    },
+
+    deleteProduct: async (id: string) => {
+        try {
+            await axios.delete(`https://j-burguer-api.herokuapp.com/api/v1/products/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+
     }
 }
 
