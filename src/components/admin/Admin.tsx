@@ -1,5 +1,10 @@
+import ProductsView from "../products/Products";
+
 export default function Admin() {
-    return (
-        <span>Hey user</span>
-    )
+
+  return (
+    <>
+      <ProductsView />
+    </>
+  )
 }

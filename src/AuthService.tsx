@@ -1,16 +1,16 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { Product } from './models/product';
 
-// TODO: sugerencias
+let token = '';
 
-// 1. renombrar este archivo a authService/loginService/userService o algo similar
-// 2. cambiar a exportar un objeto con funciones internas en vez de exportar funciones sueltas
-// 3. fetchData renombrar a login/authenticate o similar
-// 4. fetchData debe regresar más informacion en caso de errores que solo un boolean
-// 5. commits pequeños
-// 6. unit test!
+// const headers = {
+//     // 'Authorization': 'Bearer my-token',
+//     // 'My-Custom-Header': 'foobar'
+//     "Authorization": `Bearer ${token}`
+// };
 
-const api = {
-    
+const apiBurgerQueen = {
+
     authenticate: async function (email: string, password: string): Promise<boolean> {
         try {
             const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/auth',
@@ -18,17 +18,46 @@ const api = {
                     email: email,
                     password: password
                 });
-            console.log(response, 'respuesta');
-            console.log(response.data, 'data');
-
+            token = response.data.token;
             return true
         } catch (error) {
             console.error(error);
-            // console.error(error);            
-
             return false
         }
+    },
+
+    getProducts: async (): Promise<Product[]> => {
+        try {
+            const response = await axios.get('https://j-burguer-api.herokuapp.com/api/v1/products', { headers: { "Authorization": `Bearer ${token}` } });
+            const products = response.data.products;
+            return products
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+    },
+
+    createProduct: async (name: string, description: string = '', price: number | null, type: string = '', category: string = ''): Promise<Product> => {
+        try {
+            const article = { name, description, price, type, category }
+            const response = await axios.post('https://j-burguer-api.herokuapp.com/api/v1/products', article, { headers: { "Authorization": `Bearer ${token}` } });
+            const product = response.data
+            return product
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+    },
+
+    deleteProduct: async (id: string) => {
+        try {
+            await axios.delete(`https://j-burguer-api.herokuapp.com/api/v1/products/${id}`, { headers: { "Authorization": `Bearer ${token}` } });
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
+
     }
 }
 
-export default api
+export default apiBurgerQueen

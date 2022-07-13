@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import './Login.css';
-import api from '../../AuthService';
+import apiBurgerQueen from '../../AuthService';
 import { Message } from 'primereact/message';
 
 type Props = {
@@ -10,17 +10,17 @@ type Props = {
 }
 
 export default function Login({ setIsAuth }: Props) {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [invalidLogin, setInvalidLogin] = useState<boolean>(false)
 
-    async function login() {
-        setInvalidLogin(false);
-        if (email === '' || password === '') {
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+        
+        const {email, password} = event.target.elements;
+        if (email.value === '' || password.value === '') {
             return console.log('llene todos los campos')
         }
-
-        if (await api.authenticate(email, password)) {
+        
+        if (await apiBurgerQueen.authenticate(email.value, password.value)) {
             setIsAuth(true)
         } else {
             setInvalidLogin(true)
@@ -38,13 +38,14 @@ export default function Login({ setIsAuth }: Props) {
                     <h1 data-testid='welcomeTitle'>Welcome</h1>
                     <p>Enter your data to continue</p>
                     {invalidLogin ? <Message data-testid='error-message' className='message' severity="error" text="Wrong email or password" /> : ''}
-
-                    <InputText data-testid='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email address" />
-                    <InputText data-testid='password' value={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-                    <Button data-testid='continue-button' label="CONTINUE" onClick={login} />
+                    <form onSubmit={handleSubmit}>
+                        <InputText data-testid='email' name='email' placeholder="Email address" />
+                        <InputText data-testid='password' name='password' type="password" placeholder="Password" />
+                        <Button data-testid='continue-button' label="CONTINUE" type="submit" />
+                    </form>
                 </div>
 
             </section>
-        </main>
+        </main >
     );
 }

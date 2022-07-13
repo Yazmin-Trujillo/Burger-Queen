@@ -1,0 +1,31 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    background-color: rgba(0, 0, 0, .2);
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background-color: white;
+    display: block;
+    border: 2px solid blue;
+    width: 25em;
+    text-align: center;
+    margin: auto;
+}
+
+.container .save-cancel {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 1em;
+}
+
+.container .main {
+    text-align: initial;
+    margin-left: 2em;
+}

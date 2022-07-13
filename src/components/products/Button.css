@@ -1,0 +1,9 @@
+.button-add {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.button-add .p-button-rounded {
+    margin: 1em;
+
+}
