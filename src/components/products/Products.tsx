@@ -41,7 +41,7 @@ export default function ProductsView() {
             <div className="button-add">
                 <Button icon="pi pi-plus" className="p-button-rounded" aria-label="User" onClick={onCreateOpen} />
             </div>
-            <ProductTable products={products} />
+            <ProductTable products={products} onDelete={readProducts}/>
             {showCreateProduct ? <CreateProduct onClose={onCreateClose} onSave={readProducts} /> : ''}
         </div>
     )

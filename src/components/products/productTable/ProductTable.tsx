@@ -3,18 +3,23 @@ import { Column } from 'primereact/column';
 import { Product } from '../../../models/product';
 import { Button } from 'primereact/button';
 import apiBurgerQueen from '../../../AuthService';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { useRef } from 'react';
+import { Toast } from 'primereact/toast';
+// import { useRef } from 'react';
 
 type Props = {
-    products: Product[]
+    products: Product[],
+    onDelete: () => void
 }
 
-export default function ProductTable({ products }: Props) {
-
+export default function ProductTable({ products, onDelete }: Props) {
+    const toast = useRef<Toast>(null);
     const actionBody = (product: Product) => {
         return (
             <>
                 {/* <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct()} /> */}
-                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => deleteProduct(product.id)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => showConfirmDelete(product)} />
             </>
         );
     }
@@ -32,9 +37,20 @@ export default function ProductTable({ products }: Props) {
     //     // setDeleteProductDialog(true);
     // }
 
+    const showConfirmDelete = (product: Product) => {
+        confirmDialog({
+            message: 'Do you want to delete this product?',
+            header: 'Delete Confirmation',
+            icon: 'pi pi-info-circle',
+            acceptClassName: 'p-button-danger',
+            accept: () => deleteProduct(product.id),
+        });
+    };
+
     async function deleteProduct(id: string) {
-        console.log('delete', id)
         await apiBurgerQueen.deleteProduct(id)
+        onDelete()
+        toast.current?.show({ severity: 'success', summary: 'Confirmed', detail: 'Your product was removed', life: 3000 });
     }
 
     return (
@@ -48,6 +64,8 @@ export default function ProductTable({ products }: Props) {
                 <Column field="category" header="CATEGORY"></Column>
                 <Column body={actionBody} style={{ minWidth: '8rem' }} header="ACTIONS"></Column>
             </DataTable>
+            <ConfirmDialog />
+            <Toast ref={toast} />
         </div>
     )
 }
