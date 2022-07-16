@@ -57,6 +57,23 @@ const apiBurgerQueen = {
             throw error
         }
 
+    },
+
+    editProduct: async (id: string, name: string, description: string = '', price: number | null, type: string = '', category: string = ''): Promise<Product> => {
+        try {
+            const response = await axios.put(`https://j-burguer-api.herokuapp.com/api/v1/products/${id}`, {
+                name: { name },
+                description: { description },
+                price: { price },
+                type: { type },
+                category: { category }
+            }, { headers: { "Authorization": `Bearer ${token}` } });
+            const product = response.data
+            return product
+        } catch (error) {
+            console.error(error);
+            throw error
+        }
     }
 }
 
