@@ -28,9 +28,7 @@ export default function ProductTable({ products, onDelete, onEdit }: Props) {
         );
     }
 
-    async function editProduct(product: Product) {
-        console.log('edit')
-        // await apiBurgerQueen.editProduct(product.id, product.name, product.description, product.price, product.type, product.category);
+    async function editProduct() {
         onEdit()
     }
 
@@ -43,7 +41,6 @@ export default function ProductTable({ products, onDelete, onEdit }: Props) {
     };
 
     function onEditClose() {
-        console.log('cerrar')
         setShowEditProduct(false)
     };
 
@@ -78,11 +75,7 @@ export default function ProductTable({ products, onDelete, onEdit }: Props) {
                 <ConfirmDialog />
                 <Toast ref={toast} />
             </div>
-            {showEditProduct ? <EditProduct onClose={onEditClose} display={showEditProduct} product={productToEdit!} /> : ''}
-
-            {/* {products.map((product) => {
-                    return <EditProduct key={product.id} product={product} onClose={onEditClose} />
-                })} */}
+            {showEditProduct ? <EditProduct onClose={onEditClose} display={showEditProduct} product={productToEdit!} onEdit={editProduct} /> : ''}
         </div>
     )
 }
