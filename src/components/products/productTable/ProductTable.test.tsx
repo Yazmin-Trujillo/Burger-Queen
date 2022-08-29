@@ -16,8 +16,9 @@ describe('ProductTable component', () => {
         }];
 
         const onDeleteSPy =  jest.fn()
+        const onEditSPY = jest.fn()
 
-        render(<ProductTable products={products} onDelete={onDeleteSPy} />)
+        render(<ProductTable products={products} onDelete={onDeleteSPy} onEdit={onEditSPY} />)
 
         expect(screen.getByText(products[0].name)).toBeInTheDocument();
         expect(screen.getByText(products[0].description!)).toBeInTheDocument();

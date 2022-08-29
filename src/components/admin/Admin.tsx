@@ -1,4 +1,4 @@
-import ProductsView from "../products/Products";
+import ProductsView from "../products/ProductsView";
 
 export default function Admin() {
 

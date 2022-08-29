@@ -4,38 +4,45 @@ import { Product } from '../../../models/product';
 import { Button } from 'primereact/button';
 import apiBurgerQueen from '../../../AuthService';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Toast } from 'primereact/toast';
-// import { useRef } from 'react';
+import { EditProduct } from '../editProduct/EditProduct';
 
 type Props = {
     products: Product[],
-    onDelete: () => void
+    onDelete: () => void,
+    onEdit: () => void
 }
 
-export default function ProductTable({ products, onDelete }: Props) {
+export default function ProductTable({ products, onDelete, onEdit }: Props) {
+    const [showEditProduct, setShowEditProduct] = useState<boolean>(false);
+    const [position, setPosition] = useState('center');
+    const [productToEdit, setProductToEdit] = useState<Product>()
     const toast = useRef<Toast>(null);
     const actionBody = (product: Product) => {
         return (
             <>
-                {/* <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => editProduct()} /> */}
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success mr-2" onClick={() => showEdit(product)} />
                 <Button icon="pi pi-trash" className="p-button-rounded p-button-warning" onClick={() => showConfirmDelete(product)} />
             </>
         );
     }
 
-    // const editProduct = () => {
-    //     console.log('edit')
-    //     // setProduct({...product});
-    //     // setProductDialog(true);
-    // }
+    async function editProduct() {
+        onEdit()
+    }
 
-    // const deleteProduct = async (id: string) => {
-    //     console.log('delete')
-    //     await apiBurgerQueen.deleteProduct(id)
-    //     // setProduct(product);
-    //     // setDeleteProductDialog(true);
-    // }
+    function showEdit(product: Product) {
+        setProductToEdit(product)
+        setShowEditProduct(true)
+        if (position) {
+            setPosition(position);
+        }
+    };
+
+    function onEditClose() {
+        setShowEditProduct(false)
+    };
 
     const showConfirmDelete = (product: Product) => {
         confirmDialog({
@@ -54,18 +61,21 @@ export default function ProductTable({ products, onDelete }: Props) {
     }
 
     return (
-        <div data-testid="product-table">
-            <DataTable value={products} responsiveLayout="scroll">
-                <Column field="name" header="NAME"></Column>
-                <Column field="image" header="IMAGE"></Column>
-                <Column field="description" header="DESCRIPTION"></Column>
-                <Column field="price" header="PRICE"></Column>
-                <Column field="type" header="TYPE"></Column>
-                <Column field="category" header="CATEGORY"></Column>
-                <Column body={actionBody} style={{ minWidth: '8rem' }} header="ACTIONS"></Column>
-            </DataTable>
-            <ConfirmDialog />
-            <Toast ref={toast} />
+        <div className={`${showEditProduct ? "invisible" : ""}`}>
+            <div data-testid="product-table">
+                <DataTable value={products} responsiveLayout="scroll">
+                    <Column field="name" header="NAME"></Column>
+                    <Column field="image" header="IMAGE"></Column>
+                    <Column field="description" header="DESCRIPTION"></Column>
+                    <Column field="price" header="PRICE"></Column>
+                    <Column field="type" header="TYPE"></Column>
+                    <Column field="category" header="CATEGORY"></Column>
+                    <Column body={actionBody} style={{ minWidth: '8rem' }} header="ACTIONS"></Column>
+                </DataTable>
+                <ConfirmDialog />
+                <Toast ref={toast} />
+            </div>
+            {showEditProduct ? <EditProduct onClose={onEditClose} display={showEditProduct} product={productToEdit!} onEdit={editProduct} /> : ''}
         </div>
     )
 }
