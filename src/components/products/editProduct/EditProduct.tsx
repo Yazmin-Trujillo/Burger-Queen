@@ -54,7 +54,7 @@ export const EditProduct = ({ onClose, display, product, onEdit }: Props) => {
 
     return (
         <Dialog header="Edit product" visible={display} style={{ width: '50vw' }} onHide={() => onHide()}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="formEdit">
                 <h3>Name *</h3>
                 <InputText name="name" value={name} onChange={handleChange} />
 
